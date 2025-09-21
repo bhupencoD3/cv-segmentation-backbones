@@ -11,7 +11,8 @@ This repository contains implementations, experiments, and benchmarking of popul
 * **segmentation-loss-function/** – Dice, BCE, Cross-Entropy, IoU losses
 * **custom-unet-training.ipynb** – full U-Net pipeline implementation and training
 * **fully\_convolutional\_network.ipynb** – implementation of FCN-8 with VGG16 backbone
-* (Planned) **yolov11-instance/** – Instance segmentation with YOLOv11
+* **training-yolov11-instance-segmentation.ipynb** – YOLOv11 instance segmentation training
+* (Planned) **yolov11-instance/** – further instance segmentation experiments
 
 ---
 
@@ -21,7 +22,7 @@ This repository contains implementations, experiments, and benchmarking of popul
 * PyTorch (core DL framework)
 * Detectron2 (for FCN and panoptic segmentation)
 * Ultralytics YOLOv11 (instance segmentation)
-* NumPy, Matplotlib, PIL (data handling & visualization)
+* NumPy, Pandas, Matplotlib, PIL (data handling & visualization)
 
 ---
 
@@ -43,6 +44,7 @@ We use standard segmentation metrics:
 * Dice Coefficient (Dice Loss)
 * Binary Cross-Entropy (BCE) Loss
 * Mean Intersection-over-Union (mIoU)
+* Box Precision, Recall, mAP50, mAP50-95 (for instance segmentation)
 
 ---
 
@@ -58,7 +60,7 @@ We use standard segmentation metrics:
 
 **Results:**
 
-* Training device: CUDA GPU
+* Device: CUDA GPU
 * Epochs: 10
 * Batch size: 2
 * Optimizer: SGD, learning rate = 1e-4
@@ -99,16 +101,23 @@ Epoch [10/10], Loss: 1.0784
 
 ---
 
-### 3. YOLOv11 (Instance Segmentation) – Planned
+### 3. YOLOv11 (Instance Segmentation)
 
 * Using Ultralytics YOLOv11 framework
-* Target task: instance segmentation
 * Dataset: COCO subset / custom masks
+* Training notebook: `training-yolov11-instance-segmentation.ipynb`
+* Features automatic optimizer tuning, AMP, augmentations, caching, plotting, early stopping (patience=5)
+* Input image size: 640x640
+* Epochs: 100
+* Batch size: 8
 
-**Planned Experiments:**
+**Training Snapshot:**
 
-* Compare instance vs semantic performance
-* Real-time inference benchmark (ms per frame)
+* Box Loss, Segmentation Loss, Classification Loss monitored per epoch
+* mAP50, mAP50-95 for both box and mask evaluated on validation set
+* Example: Epoch 25 — Box(P:0.766, R:0.715, mAP50:0.72), Mask(P:0.485, R:0.665, mAP50:0.614)
+
+**Results saved in:** `/kaggle/working/YOLOv11-instance-segmentation/train`
 
 ---
 
@@ -116,7 +125,7 @@ Epoch [10/10], Loss: 1.0784
 
 * [x] U-Net implementation & benchmarking
 * [x] FCN implementation
-* [ ] YOLOv11 instance segmentation
+* [x] YOLOv11 instance segmentation
 * [ ] Panoptic segmentation with Detectron2
 * [ ] Comparative results table
 
@@ -130,8 +139,7 @@ This project is licensed under the MIT License.
 
 ## Author
 
-Authored by Bhupen.
-Repository for experimentation, benchmarking, and structured learning in computer vision segmentation.
+Authored by Bhupen. Repository for experimentation, benchmarking, and structured learning in computer vision segmentation.
 
 * [LinkedIn](https://www.linkedin.com/in/bhupenparmar/)
 * [GitHub](https://github.com/bhupencoD3)
